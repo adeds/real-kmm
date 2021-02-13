@@ -8,10 +8,11 @@ data class Character(
     val gender: Gender,
     val origin: String,
     val location: String,
-    val image: String
+    val image: String,
+    val isFavorite: Boolean,
 )
 
-private fun Gender.toString(): String {
+fun Gender.convertString(): String {
     return when (this) {
         Gender.MALE -> "Male"
         Gender.FEMALE -> "Female"
@@ -20,7 +21,7 @@ private fun Gender.toString(): String {
     }
 }
 
-private fun Status.toString(): String {
+fun Status.convertString(): String {
     return when (this) {
         Status.ALIVE -> "Alive"
         Status.DEAD -> "Dead"

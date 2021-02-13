@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.*
 abstract class FlowUseCase<out T, in Params> constructor(
     private val threadExecutor: CoroutineDispatcher
 ) {
-    internal abstract fun execute(params: Params? = null): Flow<T>
-    open operator fun invoke(params: Params? = null): Flow<T> =
+    internal abstract suspend fun execute(params: Params? = null): Flow<T>
+    open suspend operator fun invoke(params: Params? = null): Flow<T> =
         execute(params).flowOn(threadExecutor)
 }
 

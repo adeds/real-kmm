@@ -36,8 +36,8 @@ fun ApiCharactersResponse.toDomain(): List<Character> = results.map {
         gender = it.gender.toGenderCharacter(),
         origin = it.location?.name ?: "",
         location = it.location?.name ?: "",
-        image = it.image ?: ""
-
+        image = it.image ?: "",
+        isFavorite = false,
     )
 }
 

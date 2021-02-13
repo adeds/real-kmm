@@ -14,7 +14,7 @@ buildscript {
         classpath("com.squareup.sqldelight:gradle-plugin:1.4.2")
     }
 }
-group = "id.id.adeds"
+group = "id.adeds"
 version = "1.0-SNAPSHOT"
 
 repositories {

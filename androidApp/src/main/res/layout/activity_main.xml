@@ -23,6 +23,7 @@
         <TextView
                 android:id="@+id/tvErrorMessages"
                 android:textAlignment="center"
+                android:layout_marginHorizontal="10dp"
                 android:layout_gravity="center"
                 tools:text="Something went wrong"
                 android:layout_width="match_parent"

@@ -1,16 +1,18 @@
 package id.adeds.androidapp.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.adeds.androidapp.view.listener.CharacterListClickListener
 import id.adeds.androidapp.viewmodel.MainViewModel
 import id.adeds.shared.domain.model.Character
 import id.id.adeds.androidapp.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CharacterListClickListener{
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.flipper.displayedChild = 0
-        adapter = MainAdapter(characters)
+        adapter = MainAdapter(characters, this)
         binding.rvCharacters.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = this@MainActivity.adapter
@@ -50,5 +52,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun Pair<String, String>?.toMessage(): String {
         return "${this?.first.orEmpty()}\n${this?.second.orEmpty()}"
+    }
+
+    override fun itemClick(position: Int) {
+        Toast.makeText(this, characters[position].toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun favoriteClick(position: Int) {
+        viewModel.setFavorite(characters[position])
     }
 }

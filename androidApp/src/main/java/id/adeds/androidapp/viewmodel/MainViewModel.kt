@@ -8,8 +8,8 @@ import id.adeds.androidapp.util.toSingleEvent
 import id.adeds.shared.domain.interactor.character.GetCharactersUseCase
 import id.adeds.shared.domain.model.Character
 import id.adeds.shared.domain.model.GetData
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -20,19 +20,24 @@ class MainViewModel(
         get() = _characters.toSingleEvent()
 
     fun getCharacter() = viewModelScope.launch {
-        try {
-            val result = useCase().toList()
-            _characters.postValue(GetData(data = result))
-        } catch (e: Exception) {
-            _characters.postValue(
-                GetData(
-                    errorTitleAndDesc = Pair(
-                        "Something went wrong",
-                        e.message.orEmpty()
+        useCase()
+            .catch {
+                _characters.postValue(
+                    GetData(
+                        errorTitleAndDesc = Pair(
+                            "Something went wrong",
+                            it.message.orEmpty()
+                        )
                     )
                 )
-            )
-        }
+            }
+            .collect {
+                _characters.postValue(GetData(data = it))
+            }
+    }
+
+    fun setFavorite(character: Character) {
+
     }
 
 }

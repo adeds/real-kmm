@@ -12,6 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:padding="5dp"
             android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
@@ -25,7 +26,7 @@
                 android:layout_height="wrap_content" />
 
         <ImageView
-                android:layout_margin="5dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/imgCharacter"
                 app:layout_constraintVertical_bias="0"
@@ -37,11 +38,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_height="0dp" />
 
+        <ImageView
+                android:src="@drawable/ic_baseline_favorite_24"
+                android:id="@+id/imgFav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgCharacter"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
         <TextView
                 android:id="@+id/nameCharacter"
                 tools:text="name"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgFav"
                 app:layout_constraintStart_toEndOf="@id/imgGuideline"
                 app:layout_constraintTop_toTopOf="@id/imgCharacter"
                 android:layout_width="0dp"
@@ -52,7 +61,7 @@
                 android:id="@+id/statusCharacter"
                 tools:text="status"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgFav"
                 app:layout_constraintStart_toEndOf="@id/imgGuideline"
                 app:layout_constraintTop_toBottomOf="@id/nameCharacter"
                 android:layout_width="0dp"
@@ -63,7 +72,7 @@
                 android:id="@+id/speciesCharacter"
                 tools:text="species"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgFav"
                 app:layout_constraintStart_toEndOf="@id/imgGuideline"
                 app:layout_constraintTop_toBottomOf="@id/statusCharacter"
                 android:layout_width="0dp"
@@ -74,7 +83,7 @@
                 android:id="@+id/genderCharacter"
                 tools:text="gender"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgFav"
                 app:layout_constraintStart_toEndOf="@id/imgGuideline"
                 app:layout_constraintTop_toBottomOf="@id/speciesCharacter"
                 android:layout_width="0dp"
@@ -85,7 +94,7 @@
                 android:id="@+id/originCharacter"
                 tools:text="origin"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgFav"
                 app:layout_constraintStart_toEndOf="@id/imgGuideline"
                 app:layout_constraintTop_toBottomOf="@id/genderCharacter"
                 android:layout_width="0dp"
@@ -96,7 +105,7 @@
                 android:id="@+id/locationCharacter"
                 tools:text="location"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgFav"
                 app:layout_constraintStart_toEndOf="@id/imgGuideline"
                 app:layout_constraintTop_toBottomOf="@id/originCharacter"
                 android:layout_width="0dp"

@@ -1,4 +1,4 @@
-package id.adeds.shared.data_cache.sqldelight
+package id.adeds.shared.data.cache
 
 import com.squareup.sqldelight.db.SqlDriver
 

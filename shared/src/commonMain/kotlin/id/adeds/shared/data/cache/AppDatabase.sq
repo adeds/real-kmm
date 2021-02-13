@@ -10,11 +10,12 @@ CREATE TABLE CharacterFavorite(
     gender TEXT AS Gender NOT NULL,
     origin TEXT NOT NULL,
     location TEXT NOT NULL,
-    image TEXT NOT NULL
+    image TEXT NOT NULL,
+    isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
 insertCharacterFavorite:
-INSERT INTO CharacterFavorite(id, name, status, species, gender, origin, location, image) VALUES (?,?,?,?,?,?,?,?);
+INSERT INTO CharacterFavorite(id, name, status, species, gender, origin, location, image, isFavorite) VALUES (?,?,?,?,?,?,?,?,?);
 
 removeCharacterFavorite:
 DELETE FROM CharacterFavorite WHERE id = ?;

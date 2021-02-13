@@ -6,7 +6,7 @@ plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
-group = "id.id.adeds"
+group = "id.adeds"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -92,7 +92,7 @@ android {
 
 sqldelight {
     database("AppDatabase") {
-        packageName = "id.id.adeds.shared.data_cache.sqldelight"
+        packageName = "id.adeds.shared.data_cache.sqldelight"
         sourceFolders = listOf("kotlin")
     }
 }
