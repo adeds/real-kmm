@@ -8,5 +8,23 @@ data class Character(
     val gender: Gender,
     val origin: String,
     val location: String,
-    val image: String
+    val image: String,
+    val isFavorite: Boolean,
 )
+
+fun Gender.convertString(): String {
+    return when (this) {
+        Gender.MALE -> "Male"
+        Gender.FEMALE -> "Female"
+        Gender.GENDERLESS -> "Genderless"
+        Gender.UNKNOWN -> "Unknown"
+    }
+}
+
+fun Status.convertString(): String {
+    return when (this) {
+        Status.ALIVE -> "Alive"
+        Status.DEAD -> "Dead"
+        Status.UNKNOWN -> "Unknown"
+    }
+}

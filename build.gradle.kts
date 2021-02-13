@@ -1,5 +1,5 @@
 buildscript {
-    val kotlinVersion by extra("1.4.21")
+    val kotlinVersion by extra("1.4.30")
 
     repositories {
         gradlePluginPortal()
@@ -14,7 +14,7 @@ buildscript {
         classpath("com.squareup.sqldelight:gradle-plugin:1.4.2")
     }
 }
-group = "id.id.adeds"
+group = "id.adeds"
 version = "1.0-SNAPSHOT"
 
 repositories {
