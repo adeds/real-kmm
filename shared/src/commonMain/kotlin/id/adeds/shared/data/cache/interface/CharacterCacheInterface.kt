@@ -1,7 +1,7 @@
 package id.adeds.shared.data.cache.`interface`
 
 import com.squareup.sqldelight.ColumnAdapter
-import id.adeds.shared.data.cache.CharacterFavorite
+import id.adeds.shared.data.cache.Character as CharacterTable
 import id.adeds.shared.data.cache.DatabaseDriverFactory
 import id.adeds.shared.data_cache.sqldelight.AppDatabase
 import id.adeds.shared.domain.model.Character
@@ -12,7 +12,8 @@ import id.adeds.shared.domain.model.Status.*
 import id.adeds.shared.domain.model.Status.UNKNOWN
 
 interface CharacterCacheInterface {
-    suspend fun saveCharacter(results: List<Character>)
+    suspend fun saveCharacters(results: List<Character>)
+    suspend fun updateCharacter(character: Character)
     suspend fun getAllCharacter() : List<Character>
 }
 
@@ -52,30 +53,47 @@ class CharacterCacheInterfaceImpl(
     private val database =
         AppDatabase.invoke(
             databaseDriverFactory.createDriver(),
-            CharacterFavorite.Adapter(statusAdapter, genderAdapter)
+            CharacterTable.Adapter(statusAdapter, genderAdapter)
         )
     private val dbQuery = database.appDatabaseQueries
 
-    override suspend fun saveCharacter(results: List<Character>) {
+    override suspend fun saveCharacters(results: List<Character>) {
         dbQuery.transaction {
             results.forEach {
-                dbQuery.insertCharacterFavorite(
-                    it.id.toLong(),
-                    it.name,
-                    it.status,
-                    it.species,
-                    it.gender,
-                    it.origin,
-                    it.location,
-                    it.image,
-                    it.isFavorite
-                )
+                saveCharacter(it)
             }
         }
     }
 
+    override suspend fun updateCharacter(character: Character) {
+        dbQuery.transaction { dbQuery.updateCharacter(
+            character.id.toLong(),
+            character.name,
+            character.status,
+            character.species,
+            character.gender,
+            character.origin,
+            character.location,
+            character.image,
+            character.isFavorite) }
+    }
+
+    private fun saveCharacter(it: Character) {
+        dbQuery.insertCharacter(
+            it.id.toLong(),
+            it.name,
+            it.status,
+            it.species,
+            it.gender,
+            it.origin,
+            it.location,
+            it.image,
+            it.isFavorite
+        )
+    }
+
     override suspend fun getAllCharacter() =
-        dbQuery.selectAllCharacterFavorite(::mapFavorite).executeAsList()
+        dbQuery.selectAllCharacter(::mapFavorite).executeAsList()
 
 
     private fun mapFavorite(

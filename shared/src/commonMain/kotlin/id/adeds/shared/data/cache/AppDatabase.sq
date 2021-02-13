@@ -2,7 +2,7 @@ import id.adeds.shared.domain.model.Gender;
 import id.adeds.shared.domain.model.Status;
 
 
-CREATE TABLE CharacterFavorite(
+CREATE TABLE Character(
     id INTEGER NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
     status TEXT AS Status NOT NULL,
@@ -14,15 +14,17 @@ CREATE TABLE CharacterFavorite(
     isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
-insertCharacterFavorite:
-INSERT INTO CharacterFavorite(id, name, status, species, gender, origin, location, image, isFavorite) VALUES (?,?,?,?,?,?,?,?,?);
+insertCharacter:
+INSERT INTO Character(id, name, status, species, gender, origin, location, image, isFavorite) VALUES (?,?,?,?,?,?,?,?,?);
 
-removeCharacterFavorite:
-DELETE FROM CharacterFavorite WHERE id = ?;
+updateCharacter:
+INSERT OR REPLACE INTO Character(id, name, status, species, gender, origin, location, image, isFavorite) VALUES (?,?,?,?,?,?,?,?,?);
 
-selectAllCharacterFavorite:
-SELECT * FROM CharacterFavorite;
+removeCharacter:
+DELETE FROM Character WHERE id = ?;
 
-selectCharacterFavoriteById:
--- SELECT * FROM CharacterFavorite WHERE id = ?;
-SELECT EXISTS(SELECT 1 FROM CharacterFavorite WHERE id = ? LIMIT 1);
+selectAllCharacter:
+SELECT * FROM Character;
+
+selectCharacterById:
+SELECT EXISTS(SELECT 1 FROM Character WHERE id = ? LIMIT 1);

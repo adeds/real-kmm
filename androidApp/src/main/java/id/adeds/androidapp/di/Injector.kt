@@ -9,6 +9,7 @@ import id.adeds.shared.data.remote.CharacterRemoteInterfaceImpl
 import id.adeds.shared.data.repository.CharacterRepository
 import id.adeds.shared.data.repository.CharacterRepositoryImpl
 import id.adeds.shared.domain.interactor.character.GetCharactersUseCase
+import id.adeds.shared.domain.interactor.character.UpdateCharactersUseCase
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
@@ -41,9 +42,10 @@ object Injector {
 
     val useCaseModule = module {
         single { GetCharactersUseCase(get(), get()) }
+        single { UpdateCharactersUseCase(get(), get()) }
     }
 
     val viewModelModule = module {
-        viewModel { MainViewModel(get()) }
+        viewModel { MainViewModel(get(), get()) }
     }
 }

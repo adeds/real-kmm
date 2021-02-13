@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(), CharacterListClickListener{
     }
 
     override fun favoriteClick(position: Int) {
+        binding.flipper.displayedChild = 0
         viewModel.setFavorite(characters[position])
     }
 }

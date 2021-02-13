@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 
 interface CharacterRepository {
     suspend fun getCharacter(): Flow<List<Character>>
+    suspend fun updateCharacter(character: Character): Flow<List<Character>>
 }
 
 class CharacterRepositoryImpl(
@@ -19,8 +20,15 @@ class CharacterRepositoryImpl(
     override suspend fun getCharacter(): Flow<List<Character>> {
         if (cacheInterface.getAllCharacter().isEmpty()) {
             val response = remoteInterface.getCharacter().toDomain()
-            cacheInterface.saveCharacter(response)
+            cacheInterface.saveCharacters(response)
         }
+        return flow {
+            emit(cacheInterface.getAllCharacter())
+        }
+    }
+
+    override suspend fun updateCharacter(character: Character): Flow<List<Character>> {
+        cacheInterface.updateCharacter(character.copy(isFavorite = !character.isFavorite))
         return flow {
             emit(cacheInterface.getAllCharacter())
         }
