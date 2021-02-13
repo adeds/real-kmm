@@ -5,7 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-android")
 }
-group = "id.id.adeds"
+group = "id.adeds"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -44,7 +44,7 @@ dependencies {
 android {
     compileSdkVersion(29)
     defaultConfig {
-        applicationId = "id.id.adeds.androidapp"
+        applicationId = "id.adeds.androidapp"
         minSdkVersion(24)
         targetSdkVersion(29)
         versionCode = 1
