@@ -53,10 +53,10 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    lint {
-        isWarningsAsErrors = true
-        isAbortOnError = true
-    }
+//    lint {
+//        isWarningsAsErrors = true
+//        isAbortOnError = true
+//    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

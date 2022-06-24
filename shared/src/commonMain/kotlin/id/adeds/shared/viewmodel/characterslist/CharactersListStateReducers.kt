@@ -9,8 +9,9 @@ class CharactersListStateReducers(private val stateReducers: StateReducers) {
         //debugLogger.log("START restoreSelectedMenuItem")
         // restore the selected MenuItem saved in Settings into the state object
         val savedSelectedMenuItem = stateReducers.dataRepository.localSettings.selectedMenuItem
+        val favoriteCountries = stateReducers.dataRepository.localSettings.favoriteCharacters
         stateReducers.stateManager.updateScreen(CharactersListState::class) {
-            it.copy(selectedMenuItem = savedSelectedMenuItem)
+            it.copy(selectedMenuItem = savedSelectedMenuItem, favoriteCharacters = favoriteCountries)
         }
         return savedSelectedMenuItem
     }
