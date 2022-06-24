@@ -1,22 +1,22 @@
 buildscript {
-    val kotlinVersion by extra("1.4.30")
-
+    val compose_version by extra("1.0.0-beta01")
     repositories {
         gradlePluginPortal()
-        jcenter()
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("com.android.tools.build:gradle:4.1.2")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
-        classpath("com.squareup.sqldelight:gradle-plugin:1.4.2")
+        classpath("com.android.tools.build:gradle:7.2.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
     }
 }
-group = "id.adeds"
-version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        gradlePluginPortal()
+        google()
+        maven(url = "https://kotlin.bintray.com/kotlinx/")
+        mavenCentral()
+    }
 }

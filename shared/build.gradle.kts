@@ -1,22 +1,30 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
+group = "id.adeds"
+version = "1.0-SNAPSHOT"
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("com.squareup.sqldelight")
 }
-group = "id.adeds"
-version = "1.0-SNAPSHOT"
 
-repositories {
-    gradlePluginPortal()
-    google()
-    jcenter()
-    mavenCentral()
+
+// next block is a workaround for https://youtrack.jetbrains.com/issue/KT-43944
+// it will not be needed anymore in Kotlin 1.5
+android {
+    configurations {
+        create("androidTestApi")
+        create("androidTestDebugApi")
+        create("androidTestReleaseApi")
+        create("testApi")
+        create("testDebugApi")
+        create("testReleaseApi")
+    }
 }
+
 kotlin {
-    android()
+    android ()
     ios {
         binaries {
             framework {
@@ -24,76 +32,64 @@ kotlin {
             }
         }
     }
-
-    val ktorVersion = "1.4.0"
-    val sqlDelightVersion = "1.4.2"
-
     sourceSets {
-
-        // COMMON
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+            }
+        }
         val commonMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-
-                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
-
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.0-RC")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+                implementation("io.ktor:ktor-client-core:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-json:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
+                implementation("com.russhwolf:multiplatform-settings-no-arg:0.7.4")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("com.russhwolf:multiplatform-settings-test:0.7.4")
             }
         }
-
-        // ANDROID
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+                implementation("io.ktor:ktor-client-android:${Versions.ktor}")
             }
         }
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.12")
+                implementation("junit:junit:4.13.2")
             }
         }
-
-        // IOS
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
             }
         }
         val iosTest by getting
+
     }
 }
+
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(Versions.compile_sdk)
+    buildToolsVersion(Versions.build_tools)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(24)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion(Versions.min_sdk)
+        targetSdkVersion(Versions.target_sdk)
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
-    }
-}
-
-sqldelight {
-    database("AppDatabase") {
-        packageName = "id.adeds.shared.data_cache.sqldelight"
-        sourceFolders = listOf("kotlin")
     }
 }
 
